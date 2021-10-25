@@ -22,7 +22,7 @@ public class doctor extends JFrame implements ActionListener {
         pack();
         
         l1 = new JLabel("Hello DOCTOR");
-        l2 = new JLabel("Bill No. :");
+        l2 = new JLabel("Token No. :");
         l3 = new JLabel("Patient ID :");
         l4 = new JLabel("Charges Applicable :");
         l5 = new JLabel("Fee :");
@@ -89,6 +89,12 @@ public class doctor extends JFrame implements ActionListener {
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.black);
+        b2.setForeground(Color.white);
+        b2.setBackground(Color.black);
+        b3.setForeground(Color.white);
+        b3.setBackground(Color.black);
         
         setVisible(true);
         setSize(550,400);
@@ -106,10 +112,24 @@ public class doctor extends JFrame implements ActionListener {
            setVisible(false);
        }
        if(e.getSource()==b1){
-           //code to ADD TO DATABASE
-           if(!l9.getText().equals("")&&!l9.getText().equals("0.0")){
-           JFrame f= new JFrame();
-           JOptionPane.showMessageDialog(f, "Bill Added");}
+           try{
+                conn c1 = new conn();
+                
+                if(!l9.getText().equals("")&&!l9.getText().equals("0.0")){
+                    String tk = t1.getText();
+                    String id = t2.getText();
+                    
+                    String amt = l9.getText();
+                    String des = t6.getText();
+                    String str = "UPDATE appointment SET Bill_Amt = '"+amt+"', Details='"+des+"' where Token='"+tk+"' and ID='"+id+"' ";
+                    c1.s.executeUpdate(str);
+                    JFrame f= new JFrame();
+                    JOptionPane.showMessageDialog(f, "Bill Added");
+                }
+           }
+           catch(Exception e1){
+                System.out.print(e1);
+            }
        }
        if(e.getSource()==b3){
            String a1=t3.getText();

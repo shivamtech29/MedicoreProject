@@ -47,6 +47,10 @@ public class addamb extends JFrame implements ActionListener {
         add(b2);
         b1.setBounds(220,180,120,30);
         add(b1);
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.black);
+        b2.setForeground(Color.white);
+        b2.setBackground(Color.black);
         
         b1.addActionListener(this);
         b2.addActionListener(this);
@@ -65,9 +69,22 @@ public class addamb extends JFrame implements ActionListener {
            setVisible(false);
        }
        if(e.getSource()==b1){
-           //code to ADD TO DATABASE
-           JFrame f= new JFrame();
-           JOptionPane.showMessageDialog(f, "ADDED SUCCESSFULLY");
+           try{
+               conn c1 = new conn();
+               String s1 = t1.getText();
+               String s2 = t2.getText();
+               String s3 = t3.getText();
+               
+               String str1 = "INSERT INTO ambulance values('"+s1+"','"+s2+"','"+s3+"')";
+               c1.s.executeUpdate(str1);
+               
+               JFrame f= new JFrame();
+               JOptionPane.showMessageDialog(f, "ADDED SUCCESSFULLY");
+           }
+           catch(Exception e1){
+               System.out.print(e1);
+           }
+           
        }
     }
     public static void main(String[] args) throws ParseException {

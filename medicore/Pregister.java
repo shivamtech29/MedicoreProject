@@ -26,7 +26,7 @@ public class Pregister extends JFrame implements ActionListener {
         l2 = new JLabel("DOB");
         l3 = new JLabel("Address");
         l4 = new JLabel("Phone No");
-        l5 = new JLabel("ID one time");
+        l5 = new JLabel("ID *auto*");
         
         t1 = new JTextField();
         t2 = new JTextField(10);
@@ -64,6 +64,10 @@ public class Pregister extends JFrame implements ActionListener {
         
         b1.addActionListener(this);
         b2.addActionListener(this);
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.black);
+        b2.setForeground(Color.white);
+        b2.setBackground(Color.black);
         
         setVisible(true);
         setSize(350,400);
@@ -79,9 +83,32 @@ public class Pregister extends JFrame implements ActionListener {
            setVisible(false);
        }
         if(e.getSource()==b1){
-           //code to ADD TO DATABASE
-           JFrame f= new JFrame();
-           JOptionPane.showMessageDialog(f, "Registered Successfully");
+           try{
+               conn c1 = new conn();
+               
+               String s1 = t1.getText();
+               String s2 = t2.getText();
+               String s3 = t3.getText();
+               String s4 = t4.getText();
+               String str = "select count(*) from patientreg";
+               ResultSet rs = c1.s.executeQuery(str);
+      
+               rs.next();
+               int count = rs.getInt(1);
+               String s5 = "MdP"+(count+1);
+               
+               t5.setText(s5);
+               
+               String str1 = "INSERT INTO patientreg values('"+s5+"','"+s1+"','"+s2+"','"+s3+"','"+s4+"')";
+               c1.s.executeUpdate(str1);
+               
+               JFrame f= new JFrame();
+               JOptionPane.showMessageDialog(f, "Registered Successfully");
+           }
+           catch(Exception e1){
+               System.out.print(e1);
+           }
+           
        }
     }
     public static void main(String[] args) throws ParseException {

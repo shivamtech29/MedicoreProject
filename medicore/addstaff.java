@@ -15,9 +15,12 @@ public class addstaff extends JFrame implements ActionListener {
     JPasswordField p1;
     JButton b1,b2;
     JRadioButton r1,r2;
+    int t0;
     
     public addstaff(int t){
+        
         super("MEDICORE - SHIVAM AGARWAL");
+        t0=t;
         setLayout(null);
         
         Color c= new Color(80,240,200);
@@ -95,6 +98,10 @@ public class addstaff extends JFrame implements ActionListener {
         add(b1);
         b2.setBounds(50,400,120,30);
         add(b2);
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.black);
+        b2.setForeground(Color.white);
+        b2.setBackground(Color.black);
         
         
         setVisible(true);
@@ -110,9 +117,53 @@ public class addstaff extends JFrame implements ActionListener {
            setVisible(false);
        }
        if(e.getSource()==b1){
-           //code to ADD TO DATABASE
-           JFrame f= new JFrame();
-           JOptionPane.showMessageDialog(f, "ADDED SUCCESSFULLY");
+           try{
+               conn c1 = new conn();
+               String n = t1.getText();
+                String type="";
+                if(t0==2){
+                    type = "Doctor";
+                }
+                if(t0==1){
+                    type = "Receptionist";
+                }
+                String q = t2.getText();
+                String sp = t3.getText();
+                String d11 = d1.getText();
+                String d12 = d2.getText();
+                String ex = t4.getText();
+                
+                String str = "select count(*) from staff";
+                ResultSet rs = c1.s.executeQuery(str);
+      
+                rs.next();
+                int count = rs.getInt(1);
+                t5.setText("Medi"+(count+100));
+                String us = "Medi"+(count+100);
+                int b = (int)(Math.random()*(999)+1);
+                String paas = Integer.toString(b);
+                String pass = d11.substring(0,2)+d11.substring(3,5)+paas;
+                p1.setText(pass);
+                String gen = "";
+                if(r1.isSelected()){
+                    gen = "M";
+                }
+                if(r2.isSelected()){
+                    gen = "F";
+                }
+                
+                String str1 = "INSERT INTO staff values('"+us+"','"+pass+"','"+n+"','"+type+"','"+q+"','"+sp+"','"+d11+"','"+d12+"','"+ex+"','"+gen+"')";
+                c1.s.executeUpdate(str1);
+      
+                
+                JFrame f= new JFrame();
+                JOptionPane.showMessageDialog(f, "ADDED SUCCESSFULLY");
+                
+                
+           }
+           catch(Exception e1){
+               System.out.print(e1);
+           }
        }
     }
     public static void main(String[] args) throws ParseException {

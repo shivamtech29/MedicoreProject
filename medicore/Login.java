@@ -95,26 +95,37 @@ public class Login extends JFrame implements ActionListener {
             
         }
         if(e.getSource()==b1){
-            String gt = t1.getText();
-            String pass = "adm123";
-            String gp = new String(t2.getPassword());
-            String s = (String)cb.getSelectedItem();
-            System.out.println(gp+" "+s);
-            if(s.equals("Admin")&&gt.equals("admin")&&gp.equals(pass)){
-                setVisible(false);
-                new admin();
+            
+            try{
+                conn c1 = new conn();
+                String s1 = t1.getText();
+                String s2 = new String(t2.getPassword());
+                String s3 = (String)cb.getSelectedItem();
+                String str = "select * from staff where ID='"+s1+"' and Password='"+s2+"' and Type = '"+s3+"'";
+                ResultSet rs = c1.s.executeQuery(str);
                 
+                if(rs.next()){
+                    if(s3.equals("Admin")){
+                        setVisible(false);
+                        new admin();
+                    }
+                    if(s3.equals("Doctor")){
+                        setVisible(false);
+                        new doctor();
+                    }
+                    if(s3.equals("Receptionist")){
+                        setVisible(false);
+                        new receptionist();
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Invalid Credentials");
+                }
             }
-            if(s.equals("Doctor")&&gt.equals("doctor")&&gp.equals(pass)){
-                setVisible(false);
-                new doctor();
-                
+            catch(Exception e1){
+                System.out.print(e1);
             }
-            if(s.equals("Receptionist")&&gt.equals("receptionist")&&gp.equals(pass)){
-                setVisible(false);
-                new receptionist();
-                
-            }
+            
         }
     }
     

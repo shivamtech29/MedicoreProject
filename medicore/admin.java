@@ -123,15 +123,15 @@ public class admin extends JFrame implements ActionListener {
        }
        if(e.getSource()==b2){
            new viewstaff(1);
-           setVisible(false);
+           
        }
        if(e.getSource()==b5){
            new viewstaff(2);
-           setVisible(false);
+           
        }
        if(e.getSource()==b8){
            new viewstaff(3);
-           setVisible(false);
+           
        }
     }
     

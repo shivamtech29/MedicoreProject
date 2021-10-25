@@ -44,6 +44,16 @@ public class receptionist extends JFrame implements ActionListener {
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
+        b1.setForeground(Color.white);
+        b1.setBackground(Color.black);
+        b2.setForeground(Color.white);
+        b2.setBackground(Color.black);
+        b3.setForeground(Color.white);
+        b3.setBackground(Color.black);
+        r1.setForeground(Color.white);
+        r1.setBackground(Color.black);
+        r2.setForeground(Color.white);
+        r2.setBackground(Color.black);
         
         setVisible(true);
         setSize(350,250);
@@ -72,11 +82,11 @@ public class receptionist extends JFrame implements ActionListener {
         if(e.getSource()==b2){
            if(r1.isSelected()){
                new Pview();
-               setVisible(false);
+               
            }
            else if(r2.isSelected()){
                new Aview();
-               setVisible(false);
+               
            }
            
        }
